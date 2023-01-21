@@ -111,7 +111,7 @@ def prdProduct_model():
 
 
 # [START how_to_task_group]
-with DAG(dag_id="product_etl_dag",schedule_interval="0 9 * * *", start_date=datetime(2022, 3, 5),catchup=False,  tags=["product_model"]) as dag:
+with DAG(dag_id="product_etl_dag",schedule="0 9 * * *", start_date=datetime(2022, 3, 5),catchup=False,  tags=["product_model"]) as dag:
 
     with TaskGroup("extract_dimProudcts_load", tooltip="Extract and load source data") as extract_load_src:
         src_product_tbls = get_src_tables()

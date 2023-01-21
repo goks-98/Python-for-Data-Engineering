@@ -1,3 +1,6 @@
 venv
-airflow-sqlserver/
+airlfow-sqlserver
 airflow-issues.txt
+.env
+.metals
+.vscode

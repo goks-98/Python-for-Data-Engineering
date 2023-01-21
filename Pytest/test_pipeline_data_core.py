@@ -36,3 +36,4 @@ def test_range_val(df):
 # check values in a list
 def test_range_val_str(df):
     assert set(df.Color.unique()) == {nan, 'Black', 'Silver', 'Red', 'White', 'Blue', 'Multi', 'Yellow','Grey', 'Silver/Black'}
+
