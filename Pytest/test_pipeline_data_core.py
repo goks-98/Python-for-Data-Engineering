@@ -2,32 +2,55 @@ import pytest
 import pandas as pd
 import numpy as np
 from numpy import nan
+import os
+from dotenv import load_dotenv
+import urllib
+from sqlalchemy import create_engine
 
 @pytest.fixture
 def df():
-    df = pd.read_excel(r'D:\data\Product.xlsx')
+    #Connecting to MS SQL Server database
+    load_dotenv()
+
+    #get parameters from environmnet var
+    pwd = os.getenv('mssql_pwd')
+    uid = os.getenv('mssql_uid')
+    #sql db details
+    driver = os.getenv('mssql_driver')
+    server = os.getenv('mssql_server')
+    database = os.getenv("mssql_database")
+
+    params = urllib.parse.quote_plus(f"DRIVER={driver};"
+                                f"SERVER={server};"
+                                f"DATABASE={database};"
+                                "Trusted_Connection=yes;"
+                                "TrustServerCertificate=yes")
+
+    mssql_engine = create_engine(f"mssql+pyodbc:///?odbc_connect={params}")
+
+    df = pd.read_sql_query(""" SELECT * FROM [Production].[Product] """, mssql_engine)
     return df
 
 # check if column exists
 def test_col_exists(df):
-    name="ProductKey"
+    name="ProductID"
     assert name in df.columns
 
 # check for nulls
 def test_null_check(df):
-    assert np.where(df['ProductKey'].isnull())
+    assert np.where(df['ProductID'].isnull())
 
 # check values are unique
 def test_unique_check(df):
-    assert pd.Series(df['ProductKey']).is_unique
+    assert pd.Series(df['ProductID']).is_unique
 
 # check data type
 def test_productkey_dtype_int(df):
-    assert (df['ProductKey'].dtype == int or df['ProductKey'].dtype == np.int64)
+    assert (df['ProductID'].dtype == int or df['ProductID'].dtype == np.int64)
 
 # check data type
 def test_productname_dtype_srt(df):
-    assert (df['EnglishProductName'].dtype == str or  df['EnglishProductName'].dtype == 'O')
+    assert (df['Name'].dtype == str or  df['Name'].dtype == 'O')
 
 # check values in range
 def test_range_val(df):
@@ -35,5 +58,5 @@ def test_range_val(df):
 
 # check values in a list
 def test_range_val_str(df):
-    assert set(df.Color.unique()) == {nan, 'Black', 'Silver', 'Red', 'White', 'Blue', 'Multi', 'Yellow','Grey', 'Silver/Black'}
+    assert set(df['Color'].unique()) == {None, 'Black', 'Silver', 'Red', 'White', 'Blue', 'Multi', 'Yellow','Grey', 'Silver/Black'}
 

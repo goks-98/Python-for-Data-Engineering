@@ -1,0 +1,14 @@
+mssql_pwd = demopass
+mssql_uid = demo_user
+mssql_driver = {ODBC Driver 18 for SQL Server}
+mssql_server = demoserver
+mssql_database = demodb
+
+postgre_driver = {PostgreSQL Unicode}
+postgre_database = demodb
+postgre_server = demoserver
+postgre_port = 1000
+postgre_uid = user_id
+postgre_pwd = password
+
+

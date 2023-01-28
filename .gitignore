@@ -4,3 +4,5 @@ airflow-issues.txt
 .env
 .metals
 .vscode
+cdc*
+.pytest_cache

@@ -1,11 +1,11 @@
-use AdventureWorksDW2019
-Go
+USE AdventureWorks2019
+GO
 --insert
-INSERT [dbo].[customers] ( [customername], [customertype], [entrydate], [created_at], [modified_at]) 
-VALUES ( N'Pam Halpert', N'Individual', getdate(), getdate(), getdate()),
-       ( N'Stanely Hudson', N'Individual', getdate(), getdate(), getdate())
+INSERT [dbo].[customers] ( [customerid], [customername], [customertype], [entrydate], [created_at], [modified_at]) 
+VALUES (4, N'Pam Halpert', N'Individual', GETDATE(), GETDATE(), GETDATE()),
+       (5, N'Stanely Hudson', N'Individual', GETDATE(), GETDATE(), GETDATE())
 
 --update
-update dbo.customers
-set [customertype] = 'Corporate'
-where customerId = 3
+UPDATE dbo.customers
+SET [customertype] = 'Corporate', [modified_at] = GETDATE()
+WHERE customerId = 3

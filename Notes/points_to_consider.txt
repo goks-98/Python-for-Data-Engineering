@@ -1,0 +1,4 @@
+1. For incremental load, create etl log table in postgres and cusotmer table in ms sql.
+2. Explain the functions clearly; what they do and how they do it. 
+3. Keep it simple and dont overcomplicate
+4. Dont foget to add primary key or unique constraint for stg_customer table
