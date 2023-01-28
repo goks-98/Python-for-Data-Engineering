@@ -138,5 +138,7 @@ __azurite_db*__.json
 snowpark
 
 # Other specific folders
-airflow-sqlserver/
+airlfow-sqlserver/
 Notes/
+config/
+
